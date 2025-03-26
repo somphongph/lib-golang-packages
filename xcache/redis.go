@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/go-redis/redis"
+	"github.com/somphongph/lib-golang-packages/xlogger"
 )
 
 type Redis struct {
@@ -53,7 +54,7 @@ func NewRedis(sect *Redis) (*service, error) {
 		return nil, err
 	}
 
-	fmt.Println("Redis initialized")
+	xlogger.Infof("Redis initialized")
 
 	return &service{client}, nil
 }

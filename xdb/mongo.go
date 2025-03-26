@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/somphongph/lib-golang-packages/xlogger"
 	"go.mongodb.org/mongo-driver/event"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -29,7 +30,7 @@ func NewMongoClient(ctx context.Context, sect *Mongo) (*mongo.Client, error) {
 	if sect.IsDebug {
 		cmdMonitor := &event.CommandMonitor{
 			Started: func(ctx context.Context, evt *event.CommandStartedEvent) {
-				fmt.Printf("MongoDB CMD: %s\n", evt.Command.String())
+				xlogger.Infof("MongoDB CommandStartedEvent: %w", evt.Command.String())
 			},
 		}
 		opts = opts.SetMonitor(cmdMonitor)
@@ -40,7 +41,7 @@ func NewMongoClient(ctx context.Context, sect *Mongo) (*mongo.Client, error) {
 		return nil, err
 	}
 
-	fmt.Println("MongoDB initialized")
+	xlogger.Infof("MongoDB initialized")
 
 	return client, nil
 }

@@ -8,6 +8,7 @@ import (
 	vault "github.com/hashicorp/vault/api"
 	auth "github.com/hashicorp/vault/api/auth/approle"
 	"github.com/mitchellh/mapstructure"
+	"github.com/somphongph/lib-golang-packages/xlogger"
 )
 
 func LoadVaultSecret[T any](vaultUrl, appName, kvName string, secret T) (*T, error) {
@@ -56,7 +57,7 @@ func LoadVaultSecret[T any](vaultUrl, appName, kvName string, secret T) (*T, err
 		return nil, fmt.Errorf("unable to decode mapstructure: %w", err)
 	}
 
-	fmt.Println("Vault initialized")
+	xlogger.Infof("Vault initialized")
 
 	return &secret, nil
 }
