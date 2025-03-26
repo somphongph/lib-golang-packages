@@ -13,7 +13,7 @@ type Response struct {
 }
 
 type ResponseCached struct {
-	IsCached bool `json:"isCached"`
+	IsCached bool `json:"is_cached"`
 	Response
 }
 
