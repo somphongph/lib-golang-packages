@@ -2,7 +2,6 @@ package xcache
 
 import (
 	"fmt"
-	"log"
 	"time"
 
 	"github.com/go-redis/redis"
@@ -49,7 +48,7 @@ func NewRedis(sect *Redis) (*service, error) {
 	})
 
 	if _, err := client.Ping().Result(); err != nil {
-		log.Fatalf("Failed to ping Redis: %v", err)
+		xlogger.Errorf("Failed to ping Redis: %v", err)
 
 		return nil, err
 	}
@@ -86,7 +85,8 @@ func (s *service) Health() HealthStats {
 	if err != nil {
 		stats.Code = "down"
 		stats.Error = fmt.Errorf("redis down: %v", err)
-		log.Printf("Redis health check failed: %v", err)
+		xlogger.Errorf("Redis health check failed: %v", err)
+
 		return stats
 	}
 

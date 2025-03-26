@@ -2,7 +2,6 @@ package xlogger
 
 import (
 	"encoding/json"
-	"fmt"
 	"os"
 	"time"
 
@@ -29,7 +28,7 @@ func Init(level zapcore.Level, name string, pretty bool) {
 	} else {
 		log, err := createPrettyLogger(cfg)
 		if err != nil {
-			fmt.Printf("cannot init pretty xlogger: %v; fallback to default", err)
+			Warnf("cannot init pretty xlogger: %v; fallback to default", err)
 		} else {
 			zap.ReplaceGlobals(log)
 		}
