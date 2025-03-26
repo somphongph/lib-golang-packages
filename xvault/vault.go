@@ -56,5 +56,7 @@ func LoadVaultSecret[T any](vaultUrl, appName, kvName string, secret T) (*T, err
 		return nil, fmt.Errorf("unable to decode mapstructure: %w", err)
 	}
 
+	fmt.Println("Vault initialized")
+
 	return &secret, nil
 }

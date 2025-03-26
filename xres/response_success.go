@@ -1,6 +1,6 @@
 package xres
 
-func Success(i interface{}) (res Response) {
+func Success(i any) (res Response) {
 	return Response{
 		Code:    "success",
 		Message: "Success",
@@ -8,7 +8,7 @@ func Success(i interface{}) (res Response) {
 	}
 }
 
-func SuccessCached(i interface{}, c bool) (res ResponseCached) {
+func SuccessCached(i any, c bool) (res ResponseCached) {
 	res = ResponseCached{
 		IsCached: c,
 	}
@@ -19,7 +19,7 @@ func SuccessCached(i interface{}, c bool) (res ResponseCached) {
 	return res
 }
 
-func SuccessPaging(i interface{}, p Paging) (res ResponsePaging) {
+func SuccessPaging(i any, p Paging) (res ResponsePaging) {
 	res = ResponsePaging{}
 	res.Code = "success"
 	res.Message = "Success"

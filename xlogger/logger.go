@@ -1,8 +1,10 @@
 package xlogger
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
+	"time"
 
 	prettyconsole "github.com/thessem/zap-prettyconsole"
 	"go.uber.org/zap"
@@ -45,6 +47,17 @@ func Warnf(template string, args ...any) {
 }
 func Errorf(template string, args ...any) {
 	zap.S().Errorf(template, args...)
+}
+
+func AppLog(logStruct LogStruct) {
+	logStruct.Timestamp = time.Now().Format(time.RFC3339)
+
+	jsonLog, err := json.Marshal(logStruct)
+	if err != nil {
+		Errorf("%v", err)
+	}
+
+	zap.L().Info(string(jsonLog))
 }
 
 func createPrettyLogger(inputCfg Config) (*zap.Logger, error) {
