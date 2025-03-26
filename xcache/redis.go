@@ -16,7 +16,7 @@ type Redis struct {
 }
 
 type Servicer interface {
-	Set(key string, value interface{}, expiration time.Duration) error
+	Set(key string, value any, expiration time.Duration) error
 	Get(key string) (string, error)
 	Delete(key string) error
 	Client() *redis.Client
@@ -53,10 +53,12 @@ func NewRedis(sect *Redis) (*service, error) {
 		return nil, err
 	}
 
+	fmt.Println("Redis initialized")
+
 	return &service{client}, nil
 }
 
-func (s *service) Set(key string, value interface{}, expiration time.Duration) error {
+func (s *service) Set(key string, value any, expiration time.Duration) error {
 	k := fmt.Sprintf("%s::%s", instanceName, key)
 	return s.client.Set(k, value, expiration).Err()
 }

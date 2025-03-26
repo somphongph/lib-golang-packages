@@ -8,7 +8,6 @@ require (
 	github.com/hashicorp/vault/api/auth/approle v0.9.0
 	github.com/mitchellh/mapstructure v1.5.0
 	github.com/thessem/zap-prettyconsole v0.5.2
-	github.com/tripgator/lib-golang-packages v1.0.0
 	go.mongodb.org/mongo-driver v1.17.3
 	go.uber.org/zap v1.27.0
 )
@@ -31,6 +30,8 @@ require (
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/montanaflynn/stats v0.7.1 // indirect
 	github.com/nxadm/tail v1.4.11 // indirect
+	github.com/onsi/ginkgo v1.16.5 // indirect
+	github.com/onsi/gomega v1.36.2 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/ryanuber/go-glob v1.0.0 // indirect
 	github.com/xdg-go/pbkdf2 v1.0.0 // indirect

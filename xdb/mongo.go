@@ -4,12 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/tripgator/lib-golang-packages/xlogger"
-
 	"go.mongodb.org/mongo-driver/event"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"go.uber.org/zap"
 )
 
 type Mongo struct {
@@ -32,7 +29,7 @@ func NewMongoClient(ctx context.Context, sect *Mongo) (*mongo.Client, error) {
 	if sect.IsDebug {
 		cmdMonitor := &event.CommandMonitor{
 			Started: func(ctx context.Context, evt *event.CommandStartedEvent) {
-				xlogger.Debugf("MongoDB cmd", zap.String("cmd", evt.Command.String()))
+				fmt.Printf("MongoDB CMD: %s\n", evt.Command.String())
 			},
 		}
 		opts = opts.SetMonitor(cmdMonitor)
@@ -43,7 +40,7 @@ func NewMongoClient(ctx context.Context, sect *Mongo) (*mongo.Client, error) {
 		return nil, err
 	}
 
-	xlogger.Infof("MongoDB initialized")
+	fmt.Println("MongoDB initialized")
 
 	return client, nil
 }
