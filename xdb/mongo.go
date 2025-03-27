@@ -30,7 +30,7 @@ func NewMongoClient(ctx context.Context, sect *Mongo) (*mongo.Client, error) {
 	if sect.IsDebug {
 		cmdMonitor := &event.CommandMonitor{
 			Started: func(ctx context.Context, evt *event.CommandStartedEvent) {
-				xlogger.Infof("MongoDB CommandStartedEvent: %w", evt.Command.String())
+				xlogger.SysInfof("MongoDB CommandStartedEvent: %w", evt.Command.String())
 			},
 		}
 		opts = opts.SetMonitor(cmdMonitor)
@@ -41,7 +41,7 @@ func NewMongoClient(ctx context.Context, sect *Mongo) (*mongo.Client, error) {
 		return nil, err
 	}
 
-	xlogger.Infof("MongoDB initialized")
+	xlogger.SysInfof("MongoDB initialized")
 
 	return client, nil
 }

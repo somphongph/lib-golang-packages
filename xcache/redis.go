@@ -48,12 +48,12 @@ func NewRedis(sect *Redis) (*service, error) {
 	})
 
 	if _, err := client.Ping().Result(); err != nil {
-		xlogger.Errorf("Failed to ping Redis: %v", err)
+		xlogger.SysErrorf("Failed to ping Redis: %v", err)
 
 		return nil, err
 	}
 
-	xlogger.Infof("Redis initialized")
+	xlogger.SysInfof("Redis initialized")
 
 	return &service{client}, nil
 }
@@ -85,7 +85,7 @@ func (s *service) Health() HealthStats {
 	if err != nil {
 		stats.Code = "down"
 		stats.Error = fmt.Errorf("redis down: %v", err)
-		xlogger.Errorf("Redis health check failed: %v", err)
+		xlogger.SysErrorf("Redis health check failed: %v", err)
 
 		return stats
 	}

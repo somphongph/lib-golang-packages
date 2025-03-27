@@ -1,9 +1,7 @@
 package xlogger
 
 import (
-	"encoding/json"
 	"os"
-	"time"
 
 	prettyconsole "github.com/thessem/zap-prettyconsole"
 	"go.uber.org/zap"
@@ -28,35 +26,11 @@ func Init(level zapcore.Level, name string, pretty bool) {
 	} else {
 		log, err := createPrettyLogger(cfg)
 		if err != nil {
-			Warnf("cannot init pretty xlogger: %v; fallback to default", err)
+			SysWarnf("cannot init pretty xlogger: %v; fallback to default", err)
 		} else {
 			zap.ReplaceGlobals(log)
 		}
 	}
-}
-
-func Debugf(template string, args ...any) {
-	zap.S().Debugf(template, args...)
-}
-func Infof(template string, args ...any) {
-	zap.S().Infof(template, args...)
-}
-func Warnf(template string, args ...any) {
-	zap.S().Warnf(template, args...)
-}
-func Errorf(template string, args ...any) {
-	zap.S().Errorf(template, args...)
-}
-
-func AppLog(logStruct LogStruct) {
-	logStruct.Timestamp = time.Now().Format(time.RFC3339)
-
-	jsonLog, err := json.Marshal(logStruct)
-	if err != nil {
-		Errorf("%v", err)
-	}
-
-	zap.L().Info(string(jsonLog))
 }
 
 func createPrettyLogger(inputCfg Config) (*zap.Logger, error) {
